@@ -1,0 +1,65 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: cl.exe build SystemFileManagerX",
+            "command": "cl.exe",
+            "args": [
+                "/std:c++17",
+                "/EHsc",
+                "/Zc:__cplusplus",
+                "/Zi",
+                "/nologo",
+                "/Iinclude",
+                "src\\*.cpp",
+                "/Fo${workspaceFolder}\\build\\",
+                "/Fe${workspaceFolder}\\SystemFileManagerX.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build SystemFileManagerX from src/ using cl.exe"
+        },
+        {
+            "label": "Build Google Tests (WindowsFileSystem)",
+            "type": "cppbuild",
+            "command": "cl.exe",
+            "args": [
+                "/std:c++17",
+                "/EHsc",
+                "/Iexternal\\googletest\\include",
+                "/Iexternal\\googletest",
+                "/Iexternal\\googlemock\\include",
+                "/Iexternal\\googlemock",
+                "/Iinclude",
+                "/Fe:WindowsFileSystemTests.exe",
+                "tests\\WindowsFileSystemTests.cpp",
+                "external\\googletest\\src\\gtest_main.cc",
+                "external\\googletest\\src\\gtest-all.cc",
+                "external\\googlemock\\src\\gmock-all.cc",
+                "src\\WindowsFileSystem.cpp",
+                "/link",
+                "/out:${workspaceFolder}\\WindowsFileSystemTests.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build Google Tests for WindowsFileSystem using cl.exe"
+        }
+    ]
+}

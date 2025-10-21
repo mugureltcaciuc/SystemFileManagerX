@@ -1,0 +1,34 @@
+name: Linux build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build RHEL 8-compatible Release
+        run: |
+          docker run --rm \
+            --volume "${GITHUB_WORKSPACE}:/workspace" \
+            --workdir /workspace \
+            almalinux:8 \
+            bash -euo pipefail -c '
+              dnf -y install cmake gcc-c++ make
+              cmake -S . -B build-linux -DCMAKE_BUILD_TYPE=Release
+              cmake --build build-linux --parallel 2
+              ldd build-linux/SystemFileManagerX
+              tar -C build-linux -czf SystemFileManagerX-linux-rhel8.tar.gz SystemFileManagerX
+            '
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: SystemFileManagerX-linux-rhel8
+          path: SystemFileManagerX-linux-rhel8.tar.gz
+          if-no-files-found: error

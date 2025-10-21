@@ -1,3 +1,7 @@
+# --------------------------------------------------
+# NavigatorX .gitignore
+# --------------------------------------------------
+
 # Prerequisites
 *.d
 
@@ -16,15 +20,12 @@
 
 # Debugger Files
 *.pdb
+*.dwo
 
 # Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
 
 # Compiled Static libraries
 *.lai
@@ -37,5 +38,23 @@
 *.out
 *.app
 
-# debug information files
-*.dwo
+# Visual Studio / VSCode
+.vscode/
+.vs/
+
+# Build folder: keep folder, ignore its contents
+/build/*
+!/build/.gitkeep
+
+# Temporary or cache files
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+
+# CMake or other generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
