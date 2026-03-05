@@ -1,8 +1,8 @@
 #include <filesystem>
 #include <iostream>
 #include <fstream>
+#ifdef _WIN32
 #include <conio.h>
-
 #include "WindowsFileSystem.h"
 
 using namespace std;
@@ -178,3 +178,4 @@ bool WindowsFileSystem::create_folder(const std::filesystem::path& parent, const
         return false;
     }
 }
+#endif

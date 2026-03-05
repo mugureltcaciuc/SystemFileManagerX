@@ -1,19 +1,32 @@
 #pragma once
-
 #include "IFileSystem.h"
-#include <string>
-#include <filesystem>
 
-class LinuxFileSystem : public IFileSystem {
+class LinuxFileSystem : public IFileSystem
+{
 public:
-    LinuxFileSystem(const std::string& left_path, const std::string& right_path);
+    LinuxFileSystem(std::string &left_path, std::string &right_path);
+    void initialize();
 
-    bool copy_file(const std::filesystem::path& source, const std::filesystem::path& destination) override;
-    bool move_file(const std::filesystem::path& source, const std::filesystem::path& destination) override;
-    bool delete_file(const std::filesystem::path& target) override;
-    bool create_folder(const std::filesystem::path& base, const std::string& folder_name) override;
+    std::string &get_left_path() override;
+    std::string &get_right_path() override;
+    std::string go_back(const std::string &current_path) override;
+    std::string open(const std::string &selected_path, int index) override;
+    std::vector<std::filesystem::directory_entry> list_files(const std::string &path) const override;
+
+    bool rename_file(const std::filesystem::path& original_path, const std::string& new_name);
+    bool view_file_content(const std::filesystem::path& file_path);
+    bool edit_file_content(const std::filesystem::path& file_path);
+    bool copy_file(const std::filesystem::path& from, const std::filesystem::path& to);
+    bool move_file(const std::filesystem::path& from, const std::filesystem::path& to);
+    bool delete_file(const std::filesystem::path& target);
+    bool create_folder(const std::filesystem::path& parent, const std::string& name);
+
+    std::string _left_path;
+    std::string _right_path;
 
 private:
-    std::string left_path_;
-    std::string right_path_;
+    std::vector<std::filesystem::directory_entry> _left_files;
+    std::vector<std::filesystem::directory_entry> _right_files;
+
+    bool _initialized;
 };
